@@ -1,10 +1,10 @@
-__pycache__/
+__pycache__
 *.pyc
 *.pyo
-*.pyd
-.env
-.env.*
+.Python
+*.egg-info
 .git
 .gitignore
-README.md
-LICENSE
+*.xlsx
+.vscode
+.idea
