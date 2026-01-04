@@ -34,7 +34,7 @@ jobs:
 
     - name: Verify data file exists
       run: |
-        ls -la passenger_data.xlsx
+        ls -la tv_advertising_data.xlsx
 
     - name: Test app import
       run: |
@@ -48,9 +48,9 @@ jobs:
         try:
             import streamlit as st
             import pandas as pd
-            # Test loading data (will fail gracefully if file missing)
+            # Test loading data
             try:
-                df = pd.read_excel('passenger_data.xlsx')
+                df = pd.read_excel('tv_advertising_data.xlsx')
                 print(f'Data loaded successfully: {len(df)} rows')
             except Exception as e:
                 print(f'Data loading test skipped: {e}')
