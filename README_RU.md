@@ -72,7 +72,7 @@ streamlit run app.py
 
 ## 🔗 Ссылки
 
-- [Демо версия](https://your-app-url.streamlit.app)
+- [Демо версия](https://nastyanurislamova.streamlit.app/)
 - [Документация](https://github.com/yourusername/financial-analysis)
 
 ---

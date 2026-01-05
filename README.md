@@ -72,7 +72,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- [Live Demo](https://your-app-url.streamlit.app)
+- [Live Demo](https://nastyanurislamova.streamlit.app/)
 - [Documentation](https://github.com/yourusername/financial-analysis)
 
 ---

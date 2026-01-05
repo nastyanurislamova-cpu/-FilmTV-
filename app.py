@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime
@@ -32,8 +33,42 @@ with st.sidebar:
 def load_sample_data():
     try:
         return pd.read_excel('financial_data.xlsx')
-    except:
-        st.warning("Sample data file not found. Please generate it first.")
+    except FileNotFoundError:
+        # Generate data on the fly if file doesn't exist
+        import numpy as np
+        np.random.seed(42)
+        
+        quarters = [f"Q{(i%4)+1} {2022 + i//4}" for i in range(12)]
+        base_revenue = 1000000
+        growth_rate = 0.05
+        
+        data = []
+        for i, quarter in enumerate(quarters):
+            seasonal_factor = 1 + 0.1 * np.sin(i * np.pi / 2)
+            revenue = base_revenue * (1 + growth_rate) ** i * seasonal_factor * np.random.uniform(0.95, 1.05)
+            operating_expenses = revenue * np.random.uniform(0.60, 0.70)
+            gross_profit = revenue - operating_expenses
+            net_profit = gross_profit * np.random.uniform(0.60, 0.75)
+            total_assets = revenue * np.random.uniform(2.5, 3.5)
+            current_assets = total_assets * np.random.uniform(0.35, 0.45)
+            current_liabilities = current_assets * np.random.uniform(0.40, 0.60)
+            total_liabilities = total_assets * np.random.uniform(0.45, 0.55)
+            equity = total_assets - total_liabilities
+            
+            data.append({
+                'Quarter': quarter,
+                'Revenue': round(revenue, 2),
+                'Operating_Expenses': round(operating_expenses, 2),
+                'Net_Profit': round(net_profit, 2),
+                'Total_Assets': round(total_assets, 2),
+                'Current_Assets': round(current_assets, 2),
+                'Current_Liabilities': round(current_liabilities, 2),
+                'Equity': round(equity, 2)
+            })
+        
+        return pd.DataFrame(data)
+    except Exception as e:
+        st.error(f"Error loading data: {str(e)}")
         return None
 
 if data_source == "Use Sample Data":
