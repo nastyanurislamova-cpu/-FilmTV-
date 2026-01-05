@@ -1,98 +1,77 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
-import random
 
-# Функция для генерации данных о спонсорской рекламе на ТВ
-def generate_tv_advertising_data(num_records=5000):
+def generate_financial_data(num_quarters=12):
+    """
+    Generate synthetic quarterly financial data for demonstration
+    """
+    np.random.seed(42)
+    
+    # Generate quarters
+    start_year = 2022
+    quarters = []
+    for i in range(num_quarters):
+        year = start_year + (i // 4)
+        quarter = (i % 4) + 1
+        quarters.append(f"Q{quarter} {year}")
+    
+    # Base values with growth trend
+    base_revenue = 1000000
+    growth_rate = 0.05
+    
     data = []
-    start_date = datetime(2023, 1, 1)
     
-    # Справочники
-    channels = ['Первый канал', 'Россия 1', 'НТВ', 'ТНТ', 'СТС', 'Пятый канал', 'Рен ТВ', 'Матч ТВ']
-    program_types = ['Новости', 'Сериал', 'Развлекательное шоу', 'Спортивная передача', 
-                     'Документальный фильм', 'Ток-шоу', 'Кино', 'Утреннее шоу']
-    time_slots = ['Утро (06:00-09:00)', 'День (09:00-18:00)', 'Прайм-тайм (18:00-23:00)', 'Ночь (23:00-06:00)']
-    advertiser_types = ['FMCG', 'Автомобили', 'Финансы', 'Телекоммуникации', 'Ритейл', 'Фармацевтика', 'Технологии']
-    ad_durations = [10, 15, 20, 30, 45, 60]  # секунды
-    
-    for i in range(num_records):
-        date = start_date + timedelta(days=random.randint(0, 365))
-        channel = random.choice(channels)
-        program_type = random.choice(program_types)
-        time_slot = random.choice(time_slots)
-        advertiser_type = random.choice(advertiser_types)
-        duration = random.choice(ad_durations)
+    for i, quarter in enumerate(quarters):
+        # Revenue with growth and seasonality
+        seasonal_factor = 1 + 0.1 * np.sin(i * np.pi / 2)
+        revenue = base_revenue * (1 + growth_rate) ** i * seasonal_factor * np.random.uniform(0.95, 1.05)
         
-        # Базовая стоимость зависит от времени
-        base_cost = {
-            'Утро (06:00-09:00)': 50000,
-            'День (09:00-18:00)': 80000,
-            'Прайм-тайм (18:00-23:00)': 200000,
-            'Ночь (23:00-06:00)': 30000
-        }[time_slot]
+        # Operating expenses (60-70% of revenue)
+        operating_expenses = revenue * np.random.uniform(0.60, 0.70)
         
-        # Коэффициенты для каналов
-        channel_multiplier = {
-            'Первый канал': 1.5,
-            'Россия 1': 1.4,
-            'НТВ': 1.3,
-            'ТНТ': 1.1,
-            'СТС': 1.0,
-            'Пятый канал': 0.8,
-            'Рен ТВ': 0.9,
-            'Матч ТВ': 1.2
-        }[channel]
+        # Net profit (after all expenses and taxes)
+        gross_profit = revenue - operating_expenses
+        net_profit = gross_profit * np.random.uniform(0.60, 0.75)
         
-        # Рейтинг программы (влияет на стоимость)
-        rating = round(random.uniform(1.0, 15.0), 2)
+        # Assets (growing with business)
+        total_assets = revenue * np.random.uniform(2.5, 3.5)
+        current_assets = total_assets * np.random.uniform(0.35, 0.45)
         
-        # Охват аудитории (тысяч человек)
-        audience_reach = int(rating * random.randint(50000, 200000) / 10)
+        # Liabilities
+        current_liabilities = current_assets * np.random.uniform(0.40, 0.60)
+        total_liabilities = total_assets * np.random.uniform(0.45, 0.55)
         
-        # Расчет стоимости
-        cost = int(base_cost * channel_multiplier * (duration / 30) * (1 + rating / 10) * random.uniform(0.9, 1.1))
-        
-        # CPT (Cost Per Thousand) - стоимость за тысячу зрителей
-        cpt = round(cost / (audience_reach / 1000), 2) if audience_reach > 0 else 0
-        
-        # День недели
-        weekday = date.strftime('%A')
-        is_weekend = weekday in ['Saturday', 'Sunday']
-        
-        # Сезонность (выше в праздничные месяцы)
-        month = date.month
-        seasonal_factor = 1.2 if month in [11, 12, 1] else 1.0
-        cost = int(cost * seasonal_factor)
+        # Equity
+        equity = total_assets - total_liabilities
         
         data.append({
-            'Дата': date.date(),
-            'Канал': channel,
-            'Тип_программы': program_type,
-            'Временной_слот': time_slot,
-            'Длительность_сек': duration,
-            'Рейтинг': rating,
-            'Охват_аудитории_тыс': audience_reach,
-            'Тип_рекламодателя': advertiser_type,
-            'Стоимость_руб': cost,
-            'CPT_руб': cpt,
-            'День_недели': weekday,
-            'Выходной': is_weekend,
-            'Месяц': month
+            'Quarter': quarter,
+            'Revenue': round(revenue, 2),
+            'Operating_Expenses': round(operating_expenses, 2),
+            'Net_Profit': round(net_profit, 2),
+            'Total_Assets': round(total_assets, 2),
+            'Current_Assets': round(current_assets, 2),
+            'Current_Liabilities': round(current_liabilities, 2),
+            'Equity': round(equity, 2)
         })
     
-    return pd.DataFrame(data)
+    df = pd.DataFrame(data)
+    return df
 
-# Генерация данных
-print("Генерация данных о спонсорской рекламе на ТВ...")
-df = generate_tv_advertising_data(num_records=5000)
-
-# Сохранение в XLSX
-df.to_excel('tv_advertising_data.xlsx', index=False)
-
-print(f"Данные сохранены в tv_advertising_data.xlsx")
-print(f"Всего записей: {len(df)}")
-print(f"\nПример данных:")
-print(df.head())
-print(f"\nСтатистика по стоимости:")
-print(df['Стоимость_руб'].describe())
+if __name__ == "__main__":
+    # Generate data
+    df = generate_financial_data(num_quarters=12)
+    
+    # Save to Excel
+    df.to_excel('financial_data.xlsx', index=False, sheet_name='Financial Data')
+    
+    print("✅ Financial data generated successfully!")
+    print(f"📊 Created {len(df)} quarters of data")
+    print(f"💾 Saved to: financial_data.xlsx")
+    print("\nSample data:")
+    print(df.head())
+    print("\nFinancial metrics summary:")
+    print(f"Average Revenue: ${df['Revenue'].mean():,.0f}")
+    print(f"Average Net Profit: ${df['Net_Profit'].mean():,.0f}")
+    print(f"Average Profit Margin: {(df['Net_Profit'] / df['Revenue'] * 100).mean():.1f}%")

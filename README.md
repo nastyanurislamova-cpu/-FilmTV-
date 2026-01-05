@@ -1,80 +1,80 @@
-# 📺 Анализ стоимости спонсорской рекламы на телевидении
+# Financial Performance Analysis Dashboard
 
-Интерактивный дашборд для анализа факторов, формирующих стоимость рекламы на ТВ.
+Interactive dashboard for analyzing key financial metrics of a company based on quarterly accounting reports.
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python)](https://python.org)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.50%2B-FF4B4B?logo=streamlit)](https://streamlit.io)
-[![Pandas](https://img.shields.io/badge/Pandas-2.3%2B-150458?logo=pandas)](https://pandas.pydata.org)
-[![Plotly](https://img.shields.io/badge/Plotly-6.3%2B-2962FF?logo=plotly)](https://plotly.com/python/)
+## 📊 Overview
 
-## 🚀 Live Demo
+This application provides comprehensive analysis of financial performance indicators including:
+- Revenue and profit dynamics
+- Profitability ratios (ROA, ROE, profit margins)
+- Liquidity indicators (current ratio, quick ratio)
+- Financial leverage metrics
+- Trend analysis and forecasting
 
-**[Открыть приложение](https://tv-sponsorship-cost-factors-lr6r326w4qmqujuggabwdm.streamlit.app/)**
+## 🚀 Features
 
-## Описание
+- **Interactive Visualizations**: Dynamic charts showing quarterly trends
+- **Comparative Analysis**: Period-over-period comparison of key metrics
+- **Financial Ratios**: Automatic calculation of important financial indicators
+- **Data Export**: Download analysis results in various formats
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-Дашборд для анализа факторов, влияющих на стоимость спонсорской рекламы на российском телевидении. Анализирует зависимости между каналом, временем показа, рейтингом программы, длительностью ролика и итоговой стоимостью.
+## 🛠️ Technology Stack
 
-**Возможности:**
-- 5000 записей синтетических данных о рекламных контрактах
-- 5 вкладок с разными форматами таблиц
-- 7 интерактивных графиков
-- Фильтры по датам, каналам, временным слотам, типам программ
-- Экспорт в Excel
+- **Python 3.11+**
+- **Streamlit** - Web application framework
+- **Pandas** - Data manipulation and analysis
+- **Plotly** - Interactive visualizations
+- **Docker** - Containerization
 
-## Быстрый старт
+## 📦 Installation
+
+### Using Docker (Recommended)
 
 ```bash
-# Установка зависимостей
+docker build -t financial-analysis .
+docker run -p 8501:8501 financial-analysis
+```
+
+### Local Installation
+
+```bash
 pip install -r requirements.txt
-
-# Генерация данных
-python generate_data.py
-
-# Запуск приложения
 streamlit run app.py
 ```
 
-Откройте браузер: `http://localhost:8501`
+## 📈 Usage
 
-## Docker
+1. Launch the application
+2. Upload your financial data (Excel/CSV format) or use generated sample data
+3. Select the metrics you want to analyze
+4. Explore interactive charts and insights
 
-```bash
-docker build -t tv-ad-dashboard .
-docker run -p 8501:8501 tv-ad-dashboard
-```
+## 📄 Data Format
 
-## Анализируемые факторы
+The application expects quarterly financial data with the following structure:
+- Quarter/Period
+- Revenue
+- Operating Expenses
+- Net Profit
+- Total Assets
+- Current Assets
+- Current Liabilities
+- Equity
 
-1. **Временной слот** - Утро, День, Прайм-тайм, Ночь
-2. **Телеканал** - 8 российских каналов
-3. **Рейтинг программы** - 1.0 до 15.0
-4. **Длительность ролика** - 10-60 секунд
-5. **Тип программы** - Новости, Сериал, Шоу, Спорт и др.
-6. **Охват аудитории** - тысяч зрителей
-7. **Тип рекламодателя** - FMCG, Автомобили, Финансы и др.
-8. **Сезонность** - влияние месяца
-9. **CPT** - стоимость за тысячу зрителей
+## 🤝 Contributing
 
-## Структурка
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-```
-├── app.py                      # Streamlit приложение
-├── generate_data.py            # Генератор данных
-├── requirements.txt            # Зависимости
-├── tv_advertising_data.xlsx    # Данные
-├── Dockerfile                  # Docker конфигурация
-└── README.md                   # Документация
-```
+## 📝 License
 
-## Технологии
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-- Python 3.9+
-- Streamlit 1.50.0
-- Pandas 2.1.4
-- Plotly 6.3.1
-- NumPy 1.23.0+
+## 🔗 Links
 
-## Лицензия
+- [Live Demo](https://your-app-url.streamlit.app)
+- [Documentation](https://github.com/yourusername/financial-analysis)
 
-MIT License
+---
+
+**Note**: This application uses synthetic data for demonstration purposes. For production use, please provide actual financial statements.
