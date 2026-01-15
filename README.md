@@ -19,7 +19,7 @@ This application provides comprehensive analysis of financial performance indica
 - **Data Export**: Download analysis results in various formats
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-## 🛠️ Technology Stack
+## 🛠️ Technology Stack 
 
 - **Python 3.11+**
 - **Streamlit** - Web application framework
