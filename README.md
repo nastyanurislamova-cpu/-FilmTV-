@@ -33,7 +33,7 @@ This application provides comprehensive analysis of financial performance indica
 
 Pull from Docker Hub:
 ```bash
-docker pull nastyanurislamova/financial-analysis:latest
+docker pull nastyanurislamova/financial-analysis:latest 
 docker run -p 8501:8501 nastyanurislamova/financial-analysis:latest
 ```
 
